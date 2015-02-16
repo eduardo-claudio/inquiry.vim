@@ -1,4 +1,4 @@
-# inquiry.vim
+# Inquiry.vim
 VIM editor plugin to query development libraries and / or references.
 
 This plugin installs new command to VIM editor: <b>Inquiry</b>.<br>
@@ -19,10 +19,19 @@ The first parameter tells inquiry where to search.
 The second is optional. If exists <b>Inquiry</b> will instruct the library's search engine to seek to keywords specified. Otherwise if no keyword is passed to command, <b>Inquiry</b> wil copy the word under cursor and use it as a keyword.<br>
 All searches will open in the default OS browser.<br>
 <br>
-##Requirements<br>
+## Requirements<br>
 You MUST have Python 2.6 or 2.7 to make Inquiry works.<br>
 <br>
-##Note:<br>
+## Instalation:
+### Using pathogen:
+Copy and paste in your shell:
+
+```bash
+cd ~/.vim/bundle
+git clone https://github.com/eduardo-claudio/inquiry.vim.git
+```
+<br>
+## Note:<br>
 I've developed this in a Macintosh, so I use the OSX command <b>Open</b> to start a browser.
 In Wiindows, I advise to use a simple trick to make Inquiry works:
 since you must install python, create a file name  <b>open.bat</b> with the text below and put it into a folder which be in user's PATH:<br>
