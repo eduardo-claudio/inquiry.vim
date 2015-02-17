@@ -1,0 +1,55 @@
+*inquiry.txt*       
+VIM editor plugin to query development libraries and / or references.   *:Inquiry*
+
+Contents:                                           *InquiryContents*
+    1. Introduction ............ |InquiryIntro|
+    2. Search Engines .......... |InquirySE|
+    3. Usage ................... |InquiryUsage|
+    4. Requirements ............ |InquiryReq|
+    5. Note .................... |InquiryNote|
+
+
+Introduction:                                       *InquiryIntro*
+
+This plugin installs new command to VIM editor: Inquiry.
+The command helps to querysome development libraries or references in the web.
+Please, see NOTES below to use in Windows OS.
+
+Nowadays, the libraries / references the command is able to search are:
+
+Search Engines:                                     *InquirySE*
+    - MSDN (Microsoft Development Network)
+    - CPP (Cplusplus.com)
+    - OSX (Apple OSX developer library)
+    - IOS (Apple IOS developer library)
+    - MDN (Mozilla Developer Network )(Javascript)
+
+Usage:                                              *InquiryUsage*
+
+The usage of Inquiry command is as follows:
+
+:Inquiry {msdn|cpp|osx|ios|mdn} [keyword1 [keyword2] ...]
+
+The first parameter is mandatory and tells inquiry where to search. 
+The second is optional. If exists Inquiry will instruct the library's 
+search engine to seek to keywords specified. 
+Otherwise if no keyword is passed to command, 
+Inquiry wil copy the word under cursor and use it as a keyword.
+All searches will open in the default OS browser.
+
+
+Requirements:                                       *InquiryReq*
+
+You MUST have Python 2.6 or 2.7 to make Inquiry works.
+
+
+Note:                                               *InquiryNote*
+
+I've developed this in a Macintosh, so I use the OSX command Open to start a browser. 
+In Wiindows, I advise to use a simple trick to make Inquiry works: since you must 
+install python, create a file name open.bat with the text below and put it into 
+a folder which shall be in user's PATH:
+
+@echo off
+python -c "import sys;os.system(\"start \"+sys.argv[1])" "%1"
+
