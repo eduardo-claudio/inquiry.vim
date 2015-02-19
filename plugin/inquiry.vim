@@ -53,5 +53,8 @@ endPython
 
 endfunction
 
-:command! -nargs=+ Inquiry call SearchEngine(<f-args>)
+:command! -nargs=+ InquiryMsdn call SearchEngine('msdn', <f-args>)
+:command! -nargs=+ InquiryCpp call SearchEngine('msdn', <f-args>)
+:command! -nargs=+ InquiryOSX call SearchEngine('msdn', <f-args>)
+:command! -nargs=+ InquiryIOS call SearchEngine('msdn', <f-args>)
 
