@@ -1,20 +1,14 @@
 function! EscapeUri(uri)
-    let escapecmd = "python -c 'import urllib, sys; print urllib.quote(sys.argv[1])' '" 
-    if strlen(a:uri) < 1
-        execute "normal! lbye" 
-        return @"
-    else
-        let s = join([escapecmd, a:uri, "'"], "")
-    endif 
-    return system(s)
-endfunction
 
-function! MakeCmd(prefix,searchpart)
-    let opencmd = "!open '" 
-    let n = strlen(a:searchpart)
-    let r = strpart(a:searchpart,0,n-1)
-    let c0 = join([a:prefix,r],"")
-    return join([opencmd,escape(c0, '%'),"'"],"")
+python << endPython
+import urllib
+
+uri = vim.eval('a:uri')
+escaped = urllib.quote(uri);
+vim.command("let escaped = '%s'" % escaped)
+endPython
+
+    return escaped
 endfunction
 
 function! SearchEngine(...)
@@ -25,22 +19,38 @@ function! SearchEngine(...)
         let r = EscapeUri("")
     endif
     if a:1 ==? "msdn"
-        let c = MakeCmd("https://social.msdn.microsoft.com/search/en-us/?query=",r)
+        let url = "https://social.msdn.microsoft.com/search/en-us/?query=" . r
     elseif a:1 ==? "cpp"
-        let c = MakeCmd("http://www.cplusplus.com/search.do?q=",r)
+        let url = "http://www.cplusplus.com/search.do?q=" . r
     elseif a:1 ==? "osx"
-        let c = MakeCmd("https://developer.apple.com/search/?platform=OS%20X&q=",r)
+        let url = "https://developer.apple.com/search/?platform=OS%20X&q=" . r
     elseif a:1 ==? "ios"
-        let c = MakeCmd("https://developer.apple.com/search/?platform=iOS&q=",r)
+        let url = "https://developer.apple.com/search/?platform=iOS&q=" . r
     else
-        let c = join(["echom 'Unknown search engine: ", a:1, "'"],"")
-        let unkeng = 1
+        echom ('Unknown search engine: '. a:1
+        return
     endif
-    if unkeng
-        execute c
+
+    if has('mac')
+        let openUrlPattern = 'open %s'
+    elseif has('win32')
+        let openUrlPattern = 'start %s'
     else
-        silent execute c
+        echo 'Unsupported system to start URL'
     endif
+
+python << endPython
+
+import sys
+
+openUrlPattern = vim.eval('openUrlPattern')
+url = vim.eval('url')
+
+os.system(openUrlPattern % url)
+
+endPython
+
+
 endfunction
 
 :command! -nargs=+ Inquiry call SearchEngine(<f-args>)

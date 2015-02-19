@@ -20,7 +20,7 @@ The second is optional. If exists <b>Inquiry</b> will instruct the library's sea
 All searches will open in the default OS browser.<br>
 <br>
 ## Requirements<br>
-You MUST have Python 2.6 or 2.7 to make Inquiry works.<br>
+You MUST have Vim compiled with python support, and according python installed.<br>
 <br>
 ## Instalation:
 ### Using pathogen:
@@ -32,11 +32,4 @@ git clone https://github.com/eduardo-claudio/inquiry.vim.git
 ```
 <br>
 ## Note:<br>
-I've developed this in a Macintosh, so I use the OSX command <b>Open</b> to start a browser.
-In Wiindows, I advise to use a simple trick to make Inquiry works:
-since you must install python, create a file name  <b>open.bat</b> with the text below and put it into a folder which be in user's PATH:<br>
-Code:<br>
-<code>@echo off</code><br>
-<code>python -c "import sys;os.system(\"start \"+sys.argv[1])" "%1"</code><br>
-
-
+It currently works on Mac OSX and Windows. To make it work on Linux, the command for opening a URL in browser must me implemented.
