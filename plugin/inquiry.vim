@@ -1,9 +1,14 @@
 function! EscapeUri(uri)
-
+    if strlen(a:uri) < 1
+        execute "normal! lbye" 
+        let u = @" 
+    else
+        let u = a:uri
+    endif
 python << endPython
 import urllib
 
-uri = vim.eval('a:uri')
+uri = vim.eval('u')
 escaped = urllib.quote(uri);
 vim.command("let escaped = '%s'" % escaped)
 endPython
@@ -27,7 +32,7 @@ function! SearchEngine(...)
     elseif a:1 ==? "ios"
         let url = "https://developer.apple.com/search/?platform=iOS&q=" . r
     else
-        echom ('Unknown search engine: '. a:1)
+        echom ('Unknown search engine: '. a:1
         return
     endif
 
